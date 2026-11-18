@@ -1,0 +1,19 @@
+WARRENGHARPER.COM UPDATED WEBSITE FILES
+
+Upload the contents of this folder to the website root, preserving the assets
+subfolder. Replace the existing files when prompted.
+
+Important changes in this package:
+- The Code Redeemer is now presented as an 1131 Press publication.
+- The final cover is assets/code-cover-final.jpg.
+- The About navigation is now Meet the Author.
+- The 1131 Press and Contact pages no longer seek representation.
+- The public email address and all mailto links were removed.
+- The protected contact and project-update form submits privately through Formspree.
+- The intro is shorter, and Enter Site Silently goes directly to the homepage.
+- Worm Joke captions and unfinished placeholder copy were removed.
+- Navigation typography and Easter-egg totals were corrected.
+- The Easter-egg tracker shows 6 Code Redeemer, 2 Worm Jokes, 4 Discoveries,
+  and 12 total discoveries.
+
+After uploading, force-refresh the browser to clear cached CSS and JavaScript.
