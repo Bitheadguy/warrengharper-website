@@ -6,6 +6,7 @@ subfolder. Replace the existing files when prompted.
 Important changes in this package:
 - The Code Redeemer is now presented as an 1131 Press publication.
 - The final cover is assets/code-cover-final.jpg.
+- The homepage, intro flash, book-page background, and displayed cover all use the final cover.
 - The About navigation is now Meet the Author.
 - The 1131 Press and Contact pages no longer seek representation.
 - The public email address and all mailto links were removed.
