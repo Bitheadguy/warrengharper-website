@@ -9,6 +9,7 @@ const answer = document.getElementById("terminalAnswer");
 const promptOne = document.getElementById("systemPromptOne");
 const promptTwo = document.getElementById("systemPromptTwo");
 const soundToggle = document.getElementById("soundToggle");
+const iamFlash = document.getElementById("iamFlash");
 
 const tracks = {
   terminal: document.getElementById("terminalAudio"),
@@ -41,6 +42,7 @@ function stopAudio(){
 
 async function playTrack(name){
   if(!soundOn) return;
+  stopAudio();
   const track = tracks[name];
   track.currentTime = 0;
   try { await track.play(); } catch(e) {}
@@ -50,25 +52,39 @@ function typingClick(character){
   if(!soundOn || character === " " || character === "\n") return;
   if(!audioContext) audioContext = new (window.AudioContext || window.webkitAudioContext)();
   const now = audioContext.currentTime;
-  const osc = audioContext.createOscillator();
-  const gain = audioContext.createGain();
-  osc.type = "square";
-  osc.frequency.value = 1050 + Math.random()*100;
-  gain.gain.setValueAtTime(.0001,now);
-  gain.gain.exponentialRampToValueAtTime(.028,now+.002);
-  gain.gain.exponentialRampToValueAtTime(.0001,now+.036);
-  osc.connect(gain); gain.connect(audioContext.destination);
-  osc.start(now); osc.stop(now+.04);
+  const buffer = audioContext.createBuffer(1, Math.floor(audioContext.sampleRate * .065), audioContext.sampleRate);
+  const data = buffer.getChannelData(0);
+  for(let i=0;i<data.length;i++) data[i]=(Math.random()*2-1)*Math.exp(-i/(data.length*.14));
+  const source = audioContext.createBufferSource(); source.buffer=buffer;
+  const clickGain = audioContext.createGain();
+  clickGain.gain.setValueAtTime(.0001,now);
+  clickGain.gain.exponentialRampToValueAtTime(.18,now+.002);
+  clickGain.gain.exponentialRampToValueAtTime(.0001,now+.065);
+  source.connect(clickGain); clickGain.connect(audioContext.destination);
+  const tone = audioContext.createOscillator();
+  const toneGain = audioContext.createGain();
+  tone.type = "triangle";
+  tone.frequency.setValueAtTime(1650 + Math.random()*180,now);
+  tone.frequency.exponentialRampToValueAtTime(720,now+.09);
+  toneGain.gain.setValueAtTime(.0001,now);
+  toneGain.gain.exponentialRampToValueAtTime(.084,now+.004);
+  toneGain.gain.exponentialRampToValueAtTime(.0001,now+.09);
+  tone.connect(toneGain); toneGain.connect(audioContext.destination);
+  source.start(now); tone.start(now); tone.stop(now+.1);
 }
 
-function typeText(el,text,speed,callback){
+function terminalLetterClick(){
+  typingClick("letter");
+}
+
+function typeText(el,text,speed,callback,letterSound=typingClick){
   el.textContent="";
   let i=0;
   function next(){
     if(i<text.length){
       const ch=text[i++];
       el.textContent+=ch;
-      typingClick(ch);
+      letterSound(ch);
       wait(next,speed+Math.random()*24);
     } else if(callback) callback();
   }
@@ -82,6 +98,7 @@ function hideScenes(){
   promptOne.classList.remove("show");
   promptTwo.classList.remove("show");
   terminalScene.classList.remove("hard-glitch");
+  iamFlash.classList.remove("show");
 }
 
 function finishIntro(){
@@ -116,17 +133,18 @@ function playIntro(withSound=soundOn){
   wait(()=>{
     promptTwo.classList.add("show");
     typeText(answer,"I A",340,()=>{
-      // Immediately fail/glitch so the missing M has an obvious cause.
+      // The response stops after "I A"; the unexplained visual interruption follows.
       wait(()=>{
         terminalScene.classList.add("hard-glitch");
-        playTrack("glitch");
+        iamFlash.classList.add("show");
+        wait(()=>iamFlash.classList.remove("show"),5000);
       },180);
       wait(()=>{
         terminalScene.classList.remove("on");
         codeScene.classList.add("on");
         playTrack("code");
-      },930);
-    });
+      },5250);
+    },terminalLetterClick);
   },5600);
 
   // Code reveal.

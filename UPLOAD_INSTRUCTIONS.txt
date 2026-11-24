@@ -7,6 +7,10 @@ Important changes in this package:
 - The Code Redeemer publication date is February 16, 2027.
 - Worm Jokes by Harper, Book One, is listed as coming soon from 1131 Press.
 - The four Worm Jokes website samples were replaced with approved Book One cartoons and include copyright notices.
+- The homepage intro now uses the approved counting-on-fingers Worm Joke instead of the former relationship cartoon.
+- The terminal intro sound was increased by 18 dB so it is clearly audible without overpowering later effects.
+- The remaining intro sounds were balanced for consistent volume: code -4 dB, glitch -3 dB, Wormy +4 dB, and insights +3 dB.
+- Each new intro scene now stops the preceding scene track so the sounds do not overlap.
 - The approved 1131 Press wall-and-scarlet-cord logo appears prominently on the 1131 Press page.
 - The Code Redeemer is now presented as an 1131 Press publication.
 - The final cover is assets/code-cover-final.jpg.

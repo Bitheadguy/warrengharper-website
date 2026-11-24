@@ -401,17 +401,21 @@ footer{
 /* Version 0.4 corrections */
 #terminalQuestion{white-space:pre-line;line-height:1.45}
 .hard-glitch{
-  animation:terminalFailure .75s steps(2,end) forwards!important;
+  animation:terminalFailure .56s steps(2,end) forwards!important;
 }
 @keyframes terminalFailure{
-  0%{filter:none;transform:none;background:#000}
-  12%{filter:invert(1);transform:translateX(8px)}
-  24%{filter:contrast(3);transform:translateX(-12px) skewX(3deg)}
-  39%{filter:invert(1) hue-rotate(100deg);transform:translateY(5px)}
-  54%{filter:none;transform:translateX(14px)}
-  72%{filter:brightness(3);transform:translateX(-6px)}
-  100%{filter:brightness(0);transform:none}
+  0%,12%{filter:none;transform:none;background:#000}
+  18%{filter:brightness(0);transform:none;background:#000}
+  100%{filter:brightness(0);transform:none;background:#000}
 }
+.iam-flash{position:absolute;inset:0;z-index:5;display:grid;place-items:center;background:#000;opacity:0;visibility:hidden;pointer-events:none}
+.iam-flash.show{opacity:1;visibility:visible;animation:iamFlash 5s ease-out forwards}
+.iam-crosshair{position:relative;width:min(31vw,220px);height:min(31vw,220px);filter:drop-shadow(0 0 14px rgba(224,239,255,.9))}
+.iam-crosshair::before,.iam-crosshair::after{content:"";position:absolute;background:rgba(238,245,255,.95);box-shadow:0 0 12px rgba(221,235,255,.8)}
+.iam-crosshair::before{left:50%;top:-70%;width:3px;height:240%;transform:translateX(-50%);background:linear-gradient(180deg,transparent 0%,rgba(238,245,255,.5) 35%,#fff 50%,rgba(238,245,255,.5) 65%,transparent 100%)}
+.iam-crosshair::after{top:50%;left:-70%;height:3px;width:240%;transform:translateY(-50%);background:linear-gradient(90deg,transparent 0%,rgba(238,245,255,.5) 35%,#fff 50%,rgba(238,245,255,.5) 65%,transparent 100%)}
+.iam-crosshair{background:radial-gradient(circle,#fff 0 4%,rgba(235,246,255,.95) 5% 8%,rgba(190,220,255,.5) 10%,transparent 24%)}
+@keyframes iamFlash{0%,8%{opacity:1}92%{opacity:1}100%{opacity:0}}
 .code-scene{
   background:#000!important;
 }
