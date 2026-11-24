@@ -22,7 +22,7 @@ Important changes in this package:
 - The intro is shorter, and Enter Site Silently goes directly to the homepage.
 - Worm Joke captions and unfinished placeholder copy were removed.
 - Navigation typography and Easter-egg totals were corrected.
-- The Easter-egg tracker shows 6 Code Redeemer, 2 Worm Jokes, 4 Discoveries,
-  and 12 total discoveries.
+- The Easter-egg tracker shows 2 Home Page, 4 Code Redeemer, 2 Worm Jokes,
+  4 Discoveries, and 12 total discoveries.
 
 After uploading, force-refresh the browser to clear cached CSS and JavaScript.

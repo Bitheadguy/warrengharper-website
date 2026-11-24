@@ -3,10 +3,10 @@
   const STORAGE_KEY="wghEasterEggsV131";
   const COMPLETED_KEY="wghEasterCompletedV131";
   const WINDOW_KEY="__WGH_EASTER_V131__";
-  const totals={code:6,worm:2,scripture:4};
+  const totals={home:2,code:4,worm:2,scripture:4};
 
-  function defaultFound(){ return {code:[],worm:[],scripture:[]}; }
-  function defaultCompleted(){ return {code:false,worm:false,scripture:false}; }
+  function defaultFound(){ return {home:[],code:[],worm:[],scripture:[]}; }
+  function defaultCompleted(){ return {home:false,code:false,worm:false,scripture:false}; }
 
   function safeParse(raw, fallback){
     try { return raw ? JSON.parse(raw) : fallback; } catch { return fallback; }
@@ -30,10 +30,21 @@
   let found = readLocal(STORAGE_KEY, windowState?.found || defaultFound());
   let completed = readLocal(COMPLETED_KEY, windowState?.completed || defaultCompleted());
 
-  ["code","worm","scripture"].forEach(k=>{
+  ["home","code","worm","scripture"].forEach(k=>{
     if(!Array.isArray(found[k])) found[k]=[];
     if(typeof completed[k] !== "boolean") completed[k]=false;
   });
+
+  // Visitors who found the two homepage eggs before they had their own group
+  // have them saved under The Code Redeemer; move them to Home Page.
+  ["nr","square"].forEach(id=>{
+    if(found.code.includes(id)){
+      found.code=found.code.filter(x=>x!==id);
+      if(!found.home.includes(id)) found.home.push(id);
+    }
+  });
+  // Keep each group's "all found" flag in step with the new totals.
+  Object.keys(totals).forEach(k=>{ completed[k]=found[k].length>=totals[k]; });
 
   function persist(){
     try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(found)); }catch{}
@@ -118,7 +129,7 @@
     }
     const msg=document.getElementById("completionMessage");
     if(msg){
-      const sectionName = section==="code" ? "THE CODE REDEEMER" : section==="worm" ? "WORM JOKES" : "DISCOVERIES";
+      const sectionName = {home:"THE HOME PAGE",code:"THE CODE REDEEMER",worm:"WORM JOKES",scripture:"DISCOVERIES"}[section];
       msg.innerHTML=`<strong>You found them all!</strong><span>Every hidden Easter egg in ${sectionName} has been discovered.</span>`;
       msg.hidden=false;
       requestAnimationFrame(()=>msg.classList.add("show"));
@@ -140,12 +151,12 @@
 
   // Homepage Easter eggs
   document.getElementById("hiddenNrCode")?.addEventListener("click",()=>{
-    discover("code","nr");
+    discover("home","nr");
     show("<p class='egg-kicker'>GENESIS 22:13</p><h2>One of many hidden references.</h2><p>NR-GN22-13 points beneath the surface.</p>");
   });
 
   document.getElementById("differentSquare")?.addEventListener("click",()=>{
-    discover("code","square");
+    discover("home","square");
     show("<h2>Yes, this square is different.</h2><p>You notice stuff like that too, huh?</p>");
   });
 

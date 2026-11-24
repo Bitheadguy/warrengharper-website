@@ -32,3 +32,11 @@ INTRO REVISION (Nov 24, 2026)
   with no black gap before Wormy.
 - The LUCI whisper Easter egg waits until the intro has finished.
 - All intro timings can be adjusted in the "Timing" block at the top of script.js.
+
+EASTER EGG TRACKER (Nov 24, 2026)
+- New Home Page group: NR-GN22-13 and the different square (0 / 2).
+- The Code Redeemer group now counts only its four eggs: silver cross,
+  restricted terminal (SON), TIER 7, and the LUCI whisper (0 / 4).
+- Worm Jokes (0 / 2) and Discoveries (0 / 4) are unchanged. Total is still 12.
+- Returning visitors keep their progress; homepage eggs they already found
+  move to the Home Page group automatically.
