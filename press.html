@@ -19,7 +19,7 @@
     <a href="contact.html">Contact</a><button id="eggTrackerButton" class="egg-nav-link" type="button">EASTER EGGS</button><button id="tier7Link" class="tier7-link" type="button">TIER 7</button>
   <button id="globalSoundToggle" class="nav-button" type="button">Sound: On</button></nav>
 </header>
-<main><section class="press-hero"><div class="press-logo-panel"><img class="press-logo-image" src="assets/1131-press-logo.png" alt="1131 Press logo featuring a Jerusalem wall and scarlet cord"></div><p>The Publishing Imprint of Warren G. Harper</p><h1>Novels. Humor. Insights.</h1>
+<main><section class="press-hero"><div class="press-logo-panel"><img class="press-logo-image" src="assets/1131-press-logo.png" alt="1131 Press logo featuring the wall of Jericho and a scarlet cord"></div><p>The Publishing Imprint of Warren G. Harper</p><h1>Novels. Humor. Insights.</h1>
 <p class="press-mission">1131 PRESS is the independent publishing imprint of Warren G. Harper, established to publish his novels, hand-drawn humor, and devotional work.</p>
 <p class="press-mission"><strong><em>The Code Redeemer</em> will be the imprint’s debut novel, followed by <em>Worm Jokes by Harper</em> and future projects now in development.</strong></p>
 <p class="press-mission">Different books. One purpose: to encourage readers to discover what may be hidden beneath the surface.</p></section>
@@ -87,10 +87,12 @@ const gst=document.getElementById("globalSoundToggle");
 let siteSound=localStorage.getItem("projectLaunchSound")!=="off";
 if(gst){
   gst.textContent=`Sound: ${siteSound?"On":"Off"}`;
+  gst.setAttribute("aria-pressed",String(siteSound));
   gst.addEventListener("click",()=>{
     siteSound=!siteSound;
     localStorage.setItem("projectLaunchSound",siteSound?"on":"off");
     gst.textContent=`Sound: ${siteSound?"On":"Off"}`;
+    gst.setAttribute("aria-pressed",String(siteSound));
   });
 }
 </script>

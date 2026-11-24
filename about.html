@@ -27,8 +27,8 @@
 <p>His creative work also includes the hand-drawn humor of <em>Wormy &amp; Friends</em> and the developing devotional <em>I Never Noticed That Before!</em></p>
 <p>The projects look very different, but they share one creative instinct: discovering what may be hidden beneath the surface.</p></div></section>
 <section class="about-three"><article><span>01</span><h3>Novels</h3><p>Technology, freedom, conspiracy, faith, and the choices people make when systems demand obedience.</p></article>
-<article><span>02</span><h3>HUMOR</h3><p>Simple drawings that find absurdity in work, relationships, church, sports, and ordinary life.</p></article>
-<article><span>03</span><h3>DISCOVERIES</h3><p>Sharing discoveries from Scripture that I've found, stumbled upon, or had revealed to me while reading God's Word.</p></article></section></main><footer class="global-footer">
+<article><span>02</span><h3>Humor</h3><p>Simple drawings that find absurdity in work, relationships, church, sports, and ordinary life.</p></article>
+<article><span>03</span><h3>Discoveries</h3><p>Discoveries from Scripture that Warren has found, stumbled upon, or had revealed to him while reading God’s Word.</p></article></section></main><footer class="global-footer">
   <div>
     <strong>Discover what’s hidden beneath the surface.</strong>
     <span>© <span class="current-year">2026</span> Warren G. Harper</span>
@@ -77,10 +77,12 @@ const gst=document.getElementById("globalSoundToggle");
 let siteSound=localStorage.getItem("projectLaunchSound")!=="off";
 if(gst){
   gst.textContent=`Sound: ${siteSound?"On":"Off"}`;
+  gst.setAttribute("aria-pressed",String(siteSound));
   gst.addEventListener("click",()=>{
     siteSound=!siteSound;
     localStorage.setItem("projectLaunchSound",siteSound?"on":"off");
     gst.textContent=`Sound: ${siteSound?"On":"Off"}`;
+    gst.setAttribute("aria-pressed",String(siteSound));
   });
 }
 </script>

@@ -221,10 +221,16 @@
     };
     whisper.addEventListener("click",activate);
     whisper.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();activate();}});
-    setTimeout(()=>{
-      whisper.classList.add("appear");
-      setTimeout(()=>whisper.classList.remove("appear"),5200);
-    },6500+Math.random()*3500);
+    // Wait until the homepage intro has finished so LUCI never interrupts it.
+    const scheduleWhisper=()=>{
+      const introEl=document.getElementById("intro");
+      if(introEl && !introEl.classList.contains("hidden")){ setTimeout(scheduleWhisper,1000); return; }
+      setTimeout(()=>{
+        whisper.classList.add("appear");
+        setTimeout(()=>whisper.classList.remove("appear"),5200);
+      },6500+Math.random()*3500);
+    };
+    scheduleWhisper();
   }
 
 

@@ -60,14 +60,25 @@ if (menu && nav) menu.addEventListener('click', () => {
 });
 </script>
 <script>
-const lightBox=document.getElementById('marqueeLights'),bulbs=[];let n=0,gap=10;
-const countX=Math.max(12,Math.floor(window.innerWidth/46)),countY=Math.max(8,Math.floor(window.innerHeight/46));
-function bulb(x,y){const b=document.createElement('i');b.style.left=x+'px';b.style.top=y+'px';lightBox.appendChild(b);bulbs.push(b);}
-for(let i=0;i<countX;i++)bulb(gap+i*(window.innerWidth-2*gap)/(countX-1),gap);
-for(let i=1;i<countY;i++)bulb(window.innerWidth-gap,gap+i*(window.innerHeight-2*gap)/(countY-1));
-for(let i=countX-2;i>=0;i--)bulb(gap+i*(window.innerWidth-2*gap)/(countX-1),window.innerHeight-gap);
-for(let i=countY-2;i>0;i--)bulb(gap,gap+i*(window.innerHeight-2*gap)/(countY-1));
-bulbs.forEach((b,i)=>b.style.animationDelay=(i*.085)+'s');
+(() => {
+const lightBox=document.getElementById('marqueeLights');
+if(!lightBox)return;
+const gap=10;
+function drawLights(){
+  lightBox.innerHTML='';
+  const bulbs=[],W=window.innerWidth,H=window.innerHeight;
+  const countX=Math.max(12,Math.floor(W/46)),countY=Math.max(8,Math.floor(H/46));
+  function bulb(x,y){const b=document.createElement('i');b.style.left=x+'px';b.style.top=y+'px';lightBox.appendChild(b);bulbs.push(b);}
+  for(let i=0;i<countX;i++)bulb(gap+i*(W-2*gap)/(countX-1),gap);
+  for(let i=1;i<countY;i++)bulb(W-gap,gap+i*(H-2*gap)/(countY-1));
+  for(let i=countX-2;i>=0;i--)bulb(gap+i*(W-2*gap)/(countX-1),H-gap);
+  for(let i=countY-2;i>0;i--)bulb(gap,gap+i*(H-2*gap)/(countY-1));
+  bulbs.forEach((b,i)=>b.style.animationDelay=(i*.085)+'s');
+}
+drawLights();
+let resizeTimer;
+window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(drawLights,150);});
+})();
 </script>
 
 <div id="eggTracker" class="egg-tracker" hidden>
@@ -102,10 +113,12 @@ const gst=document.getElementById("globalSoundToggle");
 let siteSound=localStorage.getItem("projectLaunchSound")!=="off";
 if(gst){
   gst.textContent=`Sound: ${siteSound?"On":"Off"}`;
+  gst.setAttribute("aria-pressed",String(siteSound));
   gst.addEventListener("click",()=>{
     siteSound=!siteSound;
     localStorage.setItem("projectLaunchSound",siteSound?"on":"off");
     gst.textContent=`Sound: ${siteSound?"On":"Off"}`;
+    gst.setAttribute("aria-pressed",String(siteSound));
   });
 }
 </script>

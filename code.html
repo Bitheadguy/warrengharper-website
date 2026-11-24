@@ -89,10 +89,12 @@ const gst=document.getElementById("globalSoundToggle");
 let siteSound=localStorage.getItem("projectLaunchSound")!=="off";
 if(gst){
   gst.textContent=`Sound: ${siteSound?"On":"Off"}`;
+  gst.setAttribute("aria-pressed",String(siteSound));
   gst.addEventListener("click",()=>{
     siteSound=!siteSound;
     localStorage.setItem("projectLaunchSound",siteSound?"on":"off");
     gst.textContent=`Sound: ${siteSound?"On":"Off"}`;
+    gst.setAttribute("aria-pressed",String(siteSound));
   });
 }
 </script>
