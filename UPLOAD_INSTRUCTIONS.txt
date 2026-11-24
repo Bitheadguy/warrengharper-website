@@ -4,6 +4,9 @@ Upload the contents of this folder to the website root, preserving the assets
 subfolder. Replace the existing files when prompted.
 
 Important changes in this package:
+- The Code Redeemer publication date is February 16, 2027.
+- Worm Jokes by Harper, Book One, is listed as coming soon from 1131 Press.
+- The four Worm Jokes website samples were replaced with approved Book One cartoons and include copyright notices.
 - The Code Redeemer is now presented as an 1131 Press publication.
 - The final cover is assets/code-cover-final.jpg.
 - The homepage, intro flash, book-page background, and displayed cover all use the final cover.
